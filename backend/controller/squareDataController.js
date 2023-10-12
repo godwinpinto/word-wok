@@ -108,6 +108,10 @@ router.post('/update-item', async (req, res) => {
 })
 
 
+
+
+
+
 router.get('/merchant-details', async (req, res) => {
     const accessToken = req.cookies.accessToken;
     console.log(accessToken)

@@ -6,11 +6,9 @@ import { APP_COOKIE_NAME } from '@/config/appConfig'
 import axios from 'axios';
 import router from '@/router';
 const $cookies = inject<VueCookies>('$cookies');
-
 const loginUrl = ref('');
 const isLoggedIn = ref(false);
 const errorMessage = ref('');
-
 const checkLoggedIn = async () => {
   errorMessage.value = ""
   if ($cookies?.get(APP_COOKIE_NAME)) {
@@ -20,7 +18,7 @@ const checkLoggedIn = async () => {
   } else {
     console.log("not found");
     try {
-      const response = await axios.get("/api/auth/request_token");
+      const response = await axios.get(import.meta.env.VITE_API_URL+"/api/auth/request_token", { withCredentials: true });
       console.log(response)
       if (response.status = 200) {
         loginUrl.value = response.data.response.url;
@@ -28,28 +26,20 @@ const checkLoggedIn = async () => {
     } catch (error: any) {
       errorMessage.value = error.message
     }
-
   }
-
 }
-
 const performSquareLogin=()=>{
   window.location.href=loginUrl.value;
 }
-
 onMounted(() => {
   checkLoggedIn();
 })
-
-
 </script>
-
 <template>
   <section class="bg-gray-100 dark:bg-gray-900">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
       <a href="#" class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
         <img class="w-96" src="@/assets/logo.png" alt="logo">
-
       </a>
       <div
         class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -58,7 +48,6 @@ onMounted(() => {
             class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white justify-center flex">
             Welcome to Word Wok!
           </h1>
-
           <p class="text-sm font-semibold text-gray-500 dark:text-gray-400">
             Now craft beautiful menu content for your restaurant with AI using Word Wok.
           </p>
@@ -91,7 +80,6 @@ onMounted(() => {
           <button v-if="!isLoggedIn && loginUrl != ''" type="button" @click="performSquareLogin" 
             class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
             Sign in to your Square account</button>
-
           <div v-if="errorMessage != ''"
             class="flex items-center p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
             role="alert">
@@ -105,7 +93,6 @@ onMounted(() => {
               <span class="font-medium">Error occured!</span> {{ errorMessage }}
             </div>
           </div>
-
         </div>
       </div>
   </div>

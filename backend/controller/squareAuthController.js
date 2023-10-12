@@ -8,7 +8,7 @@ const { v4: uuidv4 } = require('uuid');
 
 const router = express.Router();
 
-const { PORT, SQ_ENVIRONMENT, SQ_APPLICATION_ID, SQ_APPLICATION_SECRET } = process.env;
+const { PORT, SQ_ENVIRONMENT, SQ_APPLICATION_ID, SQ_APPLICATION_SECRET,PARENT_DOMAIN } = process.env;
 let basePath;
 let environment;
 if (SQ_ENVIRONMENT.toLowerCase() === "production") {
@@ -46,7 +46,7 @@ router.get("/request_token", (req, res) => {
         "status": "ok",
         "url": url
     }
-    res.cookie("Auth_State", state, { expire: Date.now() + 300000 })
+    res.cookie("Auth_State", state, { expire: Date.now() + 300000,domain:PARENT_DOMAIN })
     res.json({ response });
 });
 
@@ -113,12 +113,8 @@ router.get('/callback', async (req, res) => {
             // we call a function that writes the tokens to the page so we can easily copy and use them directly.
             // In production, you should never write tokens to the page. You should encrypt the tokens and handle them securely.
             content = messages.writeTokensOnSuccess(accessToken, refreshToken, expiresAt, merchantId)
-            // const response = {
-            //     "status": "error",
-            //     "data": content
-            // }
-            res.clearCookie('Auth_State');
-            res.cookie("accessToken", accessToken, { expire: expiresAt, domain: "localhost" })
+            res.clearCookie('Auth_State', {domain:PARENT_DOMAIN});
+            res.cookie("accessToken", accessToken, { expire: expiresAt, domain:PARENT_DOMAIN })
 
             res.redirect(process.env.UI_REDIRECT_URL)
             //            res.json({ response });

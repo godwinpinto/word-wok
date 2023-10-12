@@ -2,17 +2,14 @@
 import TheChips from '@/components/TheChips.vue'
 import { ref } from 'vue';
 import axios from 'axios'
-
 const apiErrorMessage = ref("");
 const dishName = ref("")
 const loadingService = ref(false);
-const dishNames = ref<Array<string>>()
+const dishNames = ref<Array<string>>([])
 const emit = defineEmits(['closeModal'])
-
 const closeModal = () => {
     emit('closeModal');
 }
-
 const generateNames = async () => {
     apiErrorMessage.value = "";
     loadingService.value = true;
@@ -24,22 +21,19 @@ const generateNames = async () => {
         name: dishName.value,
     };
     try {
-        const response = await axios.post("/api/ai/generate-name", postData)
+        const response = await axios.post(import.meta.env.VITE_API_URL + "/api/ai/generate-name", postData, { withCredentials: true })
         console.log("AI name response", response);
         if (response.status == 200 && response.data.response.status == "ok") {
-                const dishNamesResponse = JSON.parse(response.data.response.names)
-                dishNames.value=dishNamesResponse
+            const dishNamesResponse = JSON.parse(response.data.response.names)
+            dishNames.value = dishNamesResponse
         } else {
             apiErrorMessage.value = response.data.response.error
         }
-
     } catch (e: any) {
         apiErrorMessage.value = "Something went wrong. " + e.message
     }
     loadingService.value = false;
 }
-
-
 </script>
 <template>
     <div class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
@@ -70,9 +64,6 @@ const generateNames = async () => {
                                             placeholder="Enter dish name to generate alternative name options" required>
                                     </div>
                                 </div>
-
-
-
                                 <div v-if="apiErrorMessage != ''"
                                     class="p-4 mb-4 text-sm text-red-800 rounded-lg bg-red-50 dark:bg-gray-800 dark:text-red-400"
                                     role="alert">
@@ -80,7 +71,6 @@ const generateNames = async () => {
                                 </div>
                                 <button type="button" @click="generateNames"
                                     class="text-white bg-[#050708] hover:bg-[#050708]/80 focus:ring-4 focus:outline-none focus:ring-[#050708]/50 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:hover:bg-[#050708]/40 dark:focus:ring-gray-600 mr-2 mb-2">
-
                                     <svg v-if="loadingService" aria-hidden="true" role="status"
                                         class="inline w-4 h-4 mr-3 text-white animate-spin" viewBox="0 0 100 101"
                                         fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -92,33 +82,35 @@ const generateNames = async () => {
                                             fill="currentColor" />
                                     </svg>
                                     Generate Description
-
                                 </button>
-
                             </form>
-
-
                         </div>
                         <div class="">
                             <label for="first_name"
-                                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Generated Names</label>
-                                            <hr class="my-2 h-px border-t-0 bg-blue-300 opacity-100 dark:opacity-50" />
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Generated Names</label>
+                            <hr class="my-2 h-px border-t-0 bg-blue-300 opacity-100 dark:opacity-50" />
+                            <div v-if="dishNames.length==0" class="flex flex-1  p-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400"
+                                role="alert">
+                                <svg class="flex-shrink-0 inline w-4 h-4 mr-3" aria-hidden="true"
+                                    xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
+                                    <path
+                                        d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
+                                </svg>
+                                <span class="sr-only">Info</span>
+                                <div>
+                                    Enter a dish name to view the alternate possibilities
+                                </div>
+                            </div>
                             <ul class="w-96">
                                 <li v-for="dish in dishNames"
                                     class="w-full border-b-2 border-neutral-100 border-opacity-100 py-4 dark:border-opacity-50">
-                                    {{dish}}
+                                    {{ dish }}
                                 </li>
-                                
                             </ul>
-
-
-
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
+        </div>
     </div>
-</div></template>
+</template>

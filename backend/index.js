@@ -11,13 +11,19 @@ const generativeAIController =require("./controller/generativeAIController")
 const squareAuthController =require("./controller/squareAuthController")
 const squareDataController =require("./controller/squareDataController")
 
-app.use(cors())
+
+const { PORT, SQ_ENVIRONMENT, SQ_APPLICATION_ID, SQ_APPLICATION_SECRET,DEPLOYMENT_MODE } = process.env;
+
+if(DEPLOYMENT_MODE=="SERVER"){
+app.use(cors({credentials: true, origin: 'https://word-wok.coauth.dev'}))
+}else{
+    app.use(cors({credentials: true, origin: 'http://localhost:5173'}));
+}
 app.use(cookieParser());
 app.use(express.json());
 
-const { PORT, SQ_ENVIRONMENT, SQ_APPLICATION_ID, SQ_APPLICATION_SECRET } = process.env;
 
-const port = PORT || "8000";
+const port = PORT || "443";
 
 BigInt.prototype["toJSON"] = function () {
     return this.toString();
