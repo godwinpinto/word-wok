@@ -77,5 +77,6 @@ The project is released under MIT license. Repository link already included
 Please create an issue to report a bug or new feature request
 
 ## Future plans for Word Wok
-- Custom model for better precision of menu content from food ordering database
-- Menu Card builder with Google AI Imagen to create a ready menu card that can simply be put to print
+- [ ] AI auto-generate keywords (suggestions) for description screen
+- [ ] Custom model for better precision of menu content from food ordering database
+- [ ] Menu Card builder with Google AI Imagen to create a ready menu card that can simply be put to print
