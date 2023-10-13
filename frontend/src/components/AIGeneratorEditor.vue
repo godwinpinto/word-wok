@@ -58,6 +58,9 @@ const updateToSquare = async () => {
     loadingSubmitService.value = true;
     const updateData=itemRoot;
     updateData.itemData.description=generatedDescription.value
+    updateData.itemData.descriptionHtml="<p>"+generatedDescription.value+"<p>"
+    updateData.itemData.descriptionPlaintext=generatedDescription.value
+
     try {
         const response = await axios.post(import.meta.env.VITE_API_URL+"/api/square/update-item", updateData, { withCredentials: true })
         console.log("Sqauare response", response);
