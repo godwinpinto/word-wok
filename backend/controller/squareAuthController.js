@@ -114,7 +114,7 @@ router.get('/callback', async (req, res) => {
             // In production, you should never write tokens to the page. You should encrypt the tokens and handle them securely.
             content = messages.writeTokensOnSuccess(accessToken, refreshToken, expiresAt, merchantId)
             res.clearCookie('Auth_State', {domain:PARENT_DOMAIN});
-            res.cookie("accessToken", accessToken, { expire: expiresAt, domain:PARENT_DOMAIN })
+            res.cookie("accessToken", accessToken, { expire: Date.now() + 1000*60*60*2, domain:PARENT_DOMAIN })
 
             res.redirect(process.env.UI_REDIRECT_URL)
             //            res.json({ response });
@@ -153,9 +153,8 @@ router.get('/callback', async (req, res) => {
 
 
 router.get("/logout", (req, res) => {
-    const response={status:"ok"}
     res.clearCookie('accessToken', {domain:PARENT_DOMAIN});
-    res.json({ response });
+    res.redirect(process.env.UI_REDIRECT_URL)
 });
 
 module.exports = router;

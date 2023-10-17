@@ -2,8 +2,6 @@
 import router from '@/router';
 import axios from 'axios';
 import { inject, ref } from 'vue';
-import type { VueCookies } from 'vue-cookies';
-
 
 const businessName=ref('');
 const getMerchantDetails=async()=>{
@@ -17,21 +15,10 @@ const getMerchantDetails=async()=>{
 }
 getMerchantDetails();
 
-const $cookies = inject<VueCookies>('$cookies');
-
-const performLogout=()=>{
-    clearCookies();
-    $cookies?.remove("accessToken")
-    router.push("/")
+const performLogout=async ()=>{
+    window.location.href=import.meta.env.VITE_API_URL+"/api/auth/logout"
 }
 
-const clearCookies = () => {
-      document.cookie.split(";").forEach((c) => {
-        document.cookie = c
-          .replace(/^ +/, "")
-          .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-      });
-    }
 </script>
 <template>
     <nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">

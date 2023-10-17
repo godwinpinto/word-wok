@@ -1,6 +1,14 @@
+<script setup lang="ts">
+import { onMounted } from 'vue';
+
+
+onMounted(() => {
+  //window.location.href="/"
+})
+</script>
 <template>
   <div class="about">
-    <h1>This is an about page</h1>
+    <h3>You have been logged out. Redirecting now</h3>
   </div>
 </template>
 
