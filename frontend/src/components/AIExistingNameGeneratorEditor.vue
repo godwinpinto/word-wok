@@ -27,7 +27,6 @@ const generateNames = async () => {
     };
     try {
         const response = await axios.post(import.meta.env.VITE_API_URL + "/api/ai/generate-name", postData, { withCredentials: true })
-        console.log("AI name response", response);
         if (response.status == 200 && response.data.response.status == "ok") {
             const dishNamesResponse = JSON.parse(response.data.response.names)
             dishNames.value = dishNamesResponse
@@ -56,9 +55,7 @@ const updateToSquare = async () => {
     updateData.itemData.name = dishName.value
     try {
         const response = await axios.post(import.meta.env.VITE_API_URL + "/api/square/update-item", updateData, { withCredentials: true })
-        console.log("Sqauare response", response);
         if (response.status == 200) {
-            console.log("updated", response)
             updateData.version = response.data.responseData.data.result.catalogObject.version
             nameUpdated.value = true
             setTimeout(function () {
@@ -66,7 +63,6 @@ const updateToSquare = async () => {
             }, 5000);
 
         } else {
-            console.log("error in update", response)
             squareErrorMessage.value = JSON.stringify(response)
         }
     } catch (e: any) {

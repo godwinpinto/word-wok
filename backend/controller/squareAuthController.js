@@ -151,4 +151,11 @@ router.get('/callback', async (req, res) => {
     }
 });
 
+
+router.get("/logout", (req, res) => {
+    const response={status:"ok"}
+    res.clearCookie('accessToken', {domain:PARENT_DOMAIN});
+    res.json({ response });
+});
+
 module.exports = router;

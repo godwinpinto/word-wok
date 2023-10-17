@@ -20,9 +20,7 @@ const getDashboard = async () => {
     if (response.status == 200) {
       products.value = response.data.responseData.data.objects;
     }
-    console.log(response)
   } catch (error: any) {
-    console.log(error.message);
   } finally {
     loadingIndicator.value = false
   }
@@ -45,7 +43,6 @@ const openGenericNameEditor = () => {
   showGenericNameEditor.value = true;
 }
 const closeModalCallback = () => {
-  console.log("HERE");
   showEditor.value = false;
   showGenericNameEditor.value = false;
   showNameEditor.value = false;

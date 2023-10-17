@@ -38,7 +38,6 @@ const generateDescription = async () => {
     };
     try {
         const response = await axios.post(import.meta.env.VITE_API_URL+"/api/ai/generate-description", postData, { withCredentials: true })
-        console.log("AI response", response);
         if (response.status == 200 && response.data.response.status == "ok") {
             try {
                 const content = JSON.parse(response.data.response.description[0].content)
@@ -63,9 +62,7 @@ const updateToSquare = async () => {
 
     try {
         const response = await axios.post(import.meta.env.VITE_API_URL+"/api/square/update-item", updateData, { withCredentials: true })
-        console.log("Sqauare response", response);
         if (response.status == 200) {
-            console.log("updated", response)
             updateData.version=response.data.responseData.data.result.catalogObject.version
             nameUpdated.value = true
             setTimeout(function () {
@@ -73,7 +70,6 @@ const updateToSquare = async () => {
             }, 5000);
 
         } else {
-            console.log("error in update", response)
             squareErrorMessage.value=JSON.stringify( response)
         }
     } catch (e: any) {

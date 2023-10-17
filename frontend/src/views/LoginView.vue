@@ -14,12 +14,9 @@ const checkLoggedIn = async () => {
   if ($cookies?.get(APP_COOKIE_NAME)) {
     isLoggedIn.value = true;
     router.push("/home")
-    console.log("found");
   } else {
-    console.log("not found");
     try {
       const response = await axios.get(import.meta.env.VITE_API_URL+"/api/auth/request_token", { withCredentials: true });
-      console.log(response)
       if (response.status = 200) {
         loginUrl.value = response.data.response.url;
       }
