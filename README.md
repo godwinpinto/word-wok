@@ -6,7 +6,7 @@ Word-work provides an innovative way for these merchants to generate dish names 
 While setting up a restaurant is an exhaustive task, it is definitely exciting. The next best and important thing that a customer notices after the ambience is the food menu card. Simplest way is to copy paste content online (food aggregator sites) or merchants could choose the modern innovative platform to help articulate the food description and name using Word Wok.
 
 ## Demo Video
-Click here to view the demo video [youtube.com](youtube.com)
+Click here to view the demo video [youtube.com](https://www.youtube.com/watch?v=NRRPEI0x-zQ)
 
 ## Live Demo:
 Visit [https://word-wok.coauth.dev](https://word-wok.coauth.dev) to try out
