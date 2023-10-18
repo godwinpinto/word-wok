@@ -5,8 +5,9 @@ Word-work provides an innovative way for these merchants to generate dish names 
 # Inspiration
 While setting up a restaurant is an exhaustive task, it is definitely exciting. The next best and important thing that a customer notices after the ambience is the food menu card. Simplest way is to copy paste content online (food aggregator sites) or merchants could choose the modern innovative platform to help articulate the food description and name using Word Wok.
 
-## Demo Video
-Click here to view the demo video [youtube.com](https://www.youtube.com/watch?v=NRRPEI0x-zQ)
+## Video / Article
+- Click here to view the demo video [youtube.com](https://www.youtube.com/watch?v=NRRPEI0x-zQ)
+- Article [link](https://devpost.com/software/word-wok-your-personal-ai-menu-designer)
 
 ## Live Demo:
 Visit [https://word-wok.coauth.dev](https://word-wok.coauth.dev) to try out
@@ -77,8 +78,10 @@ The project is released under MIT license. Repository link already included
 Please create an issue to report a bug or new feature request
 
 ## Future plans for Word Wok
-- [ ] Securing the application using google auth (for building it as an independant application. Storing square auth details in DB.
-- [ ] Storing ingredients details of menu item in DB for easy pre-fill in future.
-- [ ] AI auto-generate keywords (suggestions) for description screen
-- [ ] Custom model for better precision of menu content from food ordering database
-- [ ] Menu Card builder with Google AI Imagen to create a ready menu card that can simply be put to print
+- [ ] Google Auth for authentication where Square details are stored in Database
+- [ ] Storing keywords in database for pre-fill in future
+- [ ] Extending the description component (hence used chat-bison) as stated earlier in the devpost earlier
+- [ ] Dockerizing the platform for cloud hosting
+- [ ] Auto generation of keywords during the descriptive AI generation process
+- [ ] Keyword based inputs in name generation / suggestion process
+- [ ] Using Google Imagen to generate menu background images, simplifying the process of physical printing the menu cards
