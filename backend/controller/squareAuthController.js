@@ -52,7 +52,6 @@ router.get("/request_token", (req, res) => {
 
 
 router.get('/callback', async (req, res) => {
-    console.log(req.query);
     // Verify the state to protect against cross-site request forgery.
     if (req.cookies["Auth_State"] !== req.query['state']) {
         content = messages.displayStateError();

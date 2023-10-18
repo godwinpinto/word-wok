@@ -26,7 +26,6 @@ const squareClient = new Client({
 
 router.get('/dashboard', async (req, res) => {
     const accessToken = req.cookies.accessToken;
-    console.log(accessToken)
 
     const responseData = {
         "status": "ok"
@@ -56,8 +55,6 @@ router.get('/dashboard', async (req, res) => {
 
 router.post('/update-item', async (req, res) => {
     const accessToken = req.cookies.accessToken;
-    console.log(accessToken)
-
     const responseData = {
         "status": "ok"
     }
@@ -94,7 +91,6 @@ router.post('/update-item', async (req, res) => {
                 itemData: content.itemData
             }
         });
-        console.log("responseUpdate",responseUpdate);
 
         responseData.data = responseUpdate
     } catch (error) {
@@ -114,8 +110,6 @@ router.post('/update-item', async (req, res) => {
 
 router.get('/merchant-details', async (req, res) => {
     const accessToken = req.cookies.accessToken;
-    console.log(accessToken)
-
     const responseData = {
         "status": "ok"
     }
@@ -131,7 +125,6 @@ router.get('/merchant-details', async (req, res) => {
             merchantsApi,
         } = new Client(config);
         const response = await merchantsApi.retrieveMerchant('me');
-        console.log(response.result);
         responseData.data = response.result
     } catch (error) {
         console.log(error);
